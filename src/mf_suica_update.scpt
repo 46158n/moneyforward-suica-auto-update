@@ -81,6 +81,21 @@ on run argv
         ------------------------------------------------------------------
         log nowStr & " : MobileSuica update result = " & resultText
 
+        -- ------------------------------------------------------
+        -- ★ 更新後に少し待ってタブを閉じる
+        -- ------------------------------------------------------
+        if resultText is "clicked" then
+            -- 更新後、3〜5秒程度自然に待つ（好みで調整OK）
+            delay 5
+
+            tell application "Google Chrome"
+                tell front window
+                    set theTab to active tab
+                    close theTab
+                end tell
+            end tell
+        end if
+
     on error errMsg number errNum
         -- 例外発生時も時刻付きでログに残す
         log nowStr & " : ERROR (" & errNum & ") " & errMsg
